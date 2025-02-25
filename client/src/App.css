@@ -15,7 +15,7 @@ body {
 a {
   text-decoration: none;
 }
-button {
+/* button {
   background: none;
   border: none;
   color: inherit;
@@ -28,7 +28,7 @@ button {
   -ms-user-select: none;
   user-select: none;
   cursor: pointer;
-}
+} */
 p {
   /* color: ; */
   line-height: 1;

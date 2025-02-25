@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
                 defaultValue: '',
             },
             company_address: {
-                type: DataTypes.STRING(30),
+                type: DataTypes.STRING(100),
                 allowNull: false,
                 defaultValue: '',
             },
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
             },
             owner_pw: {
-                type: DataTypes.STRING(30),
+                type: DataTypes.STRING(100),
                 allowNull: false,
                 defaultValue: '',
             },

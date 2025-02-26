@@ -1,29 +1,30 @@
 const express = require('express');
 const cors = require('cors');
 const { sequelize } = require('./models');
-const owner = require("./routes/owner");
+const company = require("./routes/company");
 const admin = require("./routes/admin");
-const router = require('./routes/owner');
+const router = require('./routes/company');
 const passport = require("passport");
 const session = require("express-session");
+const path = require('path'); // path 모듈 추가
 
 const passportConfig = require("./passport");
 const app = express();
 
-
-
 const PORT = 8080;
+passportConfig();
+
+app.use(express.json());
+
 
 app.use(cors({
     origin: 'http://localhost:3000',
-    credentials: true,
+    credentials: true, // CORS에서만 credentials 설정
 }));
-
 
 (async () => {
     try {
         // ✅ 데이터베이스 동기화
-        //await sequelize.sync({ alter: true });
         await sequelize.sync({ force: false });
         console.log("✅ 데이터베이스 연결 완료");
         app.listen(PORT, () => {
@@ -35,9 +36,6 @@ app.use(cors({
 })();
 
 
-passportConfig();
-
-
 app.use(passport.initialize());
 
 app.use(
@@ -45,12 +43,9 @@ app.use(
         secret: "암호화에 쓸 비번", // 세션 암호화 키
         resave: false,
         saveUninitialized: false,
-        credentials: true,
         cookie: {
             httpOnly: true, // 클라이언트에서 쿠키를 접근하지 못하도록
             secure: false, // HTTPS에서만 작동하도록 설정
-            // secure: true, // HTTPS에서만 작동하도록 설정
-            // sameSite: "None", // 크로스 도메인에서 세션 유지
             maxAge: 24 * 60 * 60 * 1000, // 쿠키 만료 시간 설정 (1일)
         },
     })
@@ -58,13 +53,26 @@ app.use(
 
 app.use(passport.session());
 
-app.use(express.json());
+app.use(express.static(path.join(__dirname, "./build")));
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "./build/index.html"));
+});
+
 app.use(router);
 
+
+app.get("/business/auth", (req, res) => {
+
+    console.log(req.user.owner_name)
+    console.log(req.user)
+    res.json(req.user.owner_name);
+});
+
 app.use("/admin", admin);
-app.use("/owner", owner);
+app.use("/company", company);
 
-
+// 빌드된 React 앱을 제공하는 경로
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./build/index.html"));
 });

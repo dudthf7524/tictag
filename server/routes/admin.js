@@ -6,7 +6,7 @@ const passport = require("passport");
 
 router.post('/login', async (req, res, next) => {
     console.log("내가 왔다 ")
-    passport.authenticate('local', (error, user, info) => {
+    passport.authenticate('admin', (error, user, info) => {
         console.log(user)
         if (error) return res.status(500).json({ message: '서버 오류가 발생했습니다.', error });
         if (!user) return res.status(401).json({ message: info.message });

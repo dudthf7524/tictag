@@ -8,6 +8,7 @@ import Login from "./pages/login";
 import Join from "./pages/join";
 import RegisterOwner from "./adminPages/register/registerOwner";
 import LoginAdmin from "./adminPages/login/loginAdmin";
+import Test from "./test";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/join" element={<Join />} />
         <Route path="/registerOwner" element={<RegisterOwner />} />
         <Route path="/loginAdmin" element={<LoginAdmin />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </>
   );

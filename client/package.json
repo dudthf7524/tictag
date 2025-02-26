@@ -12,10 +12,15 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.3",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "redux-saga": "^1.2.3",
+    "redux": "^5.0.0",
+    "react-redux": "^9.0.4",
+    "redux-devtools-extension": "^2.13.9",
+    "immer": "^9.0.21"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set HOST=0.0.0.0&&set PORT=80&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

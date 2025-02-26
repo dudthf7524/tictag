@@ -5,12 +5,8 @@ import Address from 'react-daum-postcode';
 const LoginAdmin = () => {
     
     const [formData, setFormData] = useState({
-        company_name: "",
-        company_address: "",
-        owner_id: "",
-        owner_pw: "",
-        owner_name: "",
-        owner_phone: "",
+        admin_id: "",
+        admin_pw: "",
     });
 
     const inputChange = (e) => {
@@ -28,7 +24,7 @@ const LoginAdmin = () => {
     const login = async () => {
         try {
             const response = await api.post(
-                `/user/login`,
+                `/admin/login`,
                 formData,
                 { withCredentials: true }
             );
@@ -38,18 +34,18 @@ const LoginAdmin = () => {
     }
 
 
-   
+ 
 
 
     return (
         <div className="login_admin" style={{ textAlign: "center" }}>
-            <h1>로그인</h1>
+            <h1>관리자 로그인</h1>
             <br></br>
             <h2>아이디</h2>
-            <input type="text" name="owner_id" placeholder="아이디를 입력해주세요" value={formData.owner_id} onChange={inputChange} />
+            <input type="text" name="admin_id" placeholder="아이디를 입력해주세요" value={formData.admin_id} onChange={inputChange} />
 
             <h2>비밀번호</h2>
-            <input type="text" name="owner_pw" placeholder="비밀번호를 입력해주세요" value={formData.owner_pw} onChange={inputChange} />
+            <input type="text" name="admin_pw" placeholder="비밀번호를 입력해주세요" value={formData.admin_pw} onChange={inputChange} />
             <br></br>
             <br></br>
             <button style={{ width: "300px", height: "50px" }} onClick={login}>로그인</button>

@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt')
 const owner = require('../databases/owner');
 
-router.post('/owner/register', async (req, res) => {
+router.post('/register', async (req, res) => {
     console.log(req.body)
 
     try {

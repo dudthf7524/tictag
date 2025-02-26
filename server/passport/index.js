@@ -5,11 +5,13 @@ const local = require("./local");
 const { Business } = require("../models");
 
 module.exports = async () => {
+  console.log("index.js")
   try {
     await passport.serializeUser((user, done) => {
       done(null, { id: user.login_id, registrationNumber: user.business_registration_number });
   
     });
+    
     await passport.deserializeUser(async (data, done) => {
       try {
         const user = await Business.findOne({ where: { login_id: data.id } });

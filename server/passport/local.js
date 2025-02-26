@@ -1,8 +1,9 @@
 const passport = require("passport");
 const { Strategy: LocalStrategy } = require("passport-local");
-const businessDatabase = require('../database/businessDatabase');
+// const businessDatabase = require('../database/businessDatabase');
 
 module.exports = () => {
+  console.log("local.js")
   passport.use(
     new LocalStrategy(
       {
@@ -12,6 +13,7 @@ module.exports = () => {
       },
       async (req, login_id, password, done) => {
 
+        console.log("local.js")
         try {
           const business = await businessDatabase.businessLogin(login_id, password);
           if (!business) {

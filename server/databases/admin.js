@@ -1,4 +1,5 @@
 const { admin } = require("../models");
+const bcrypt = require("bcrypt");
 
 
 const adminInsert = async (data) => {
@@ -22,8 +23,8 @@ const adminInsert = async (data) => {
 
 const login = async (admin_id, admin_pw) => {
     try {
-        const resultLogin = await owner.findOne({
-            where: { owner_id: admin_id },
+        const resultLogin = await admin.findOne({
+            where: { admin_id: admin_id },
             raw: true
         });
 
@@ -36,7 +37,7 @@ const login = async (admin_id, admin_pw) => {
         // bcrypt를 사용하여 비밀번호 비교
         const resultPassword = await bcrypt.compare(
             admin_pw,
-            resultLogin.owner_pw
+            resultLogin.admin_pw
         );
 
         console.log("resultPassword : " + resultPassword)

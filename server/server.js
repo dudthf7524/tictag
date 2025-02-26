@@ -1,14 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const { sequelize } = require('./models');
-const company = require("./routes/company");
+
+const worker = require("./routes/worker");
 const admin = require("./routes/admin");
+const company = require("./routes/company");
 const router = require('./routes/company');
 const passport = require("passport");
 const session = require("express-session");
 const path = require('path'); // path 모듈 추가
 
 const passportConfig = require("./passport");
+
 const app = express();
 
 const PORT = 8080;
@@ -62,13 +65,11 @@ app.get("/", (req, res) => {
 app.use(router);
 
 
-app.get("/business/auth", (req, res) => {
-
-    console.log(req.user.owner_name)
-    console.log(req.user)
-    res.json(req.user.owner_name);
+app.get("/admin/auth", (req, res) => {
+    res.json(req.user.admin_name);
 });
 
+app.use("/worker", worker);
 app.use("/admin", admin);
 app.use("/company", company);
 

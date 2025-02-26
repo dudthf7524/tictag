@@ -8,6 +8,8 @@ import Login from "./pages/login";
 import Join from "./pages/join";
 import RegisterOwner from "./adminPages/register/registerOwner";
 import LoginAdmin from "./adminPages/login/loginAdmin";
+import LoginWorker from "./pages/login/loginWorker";
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route path="/join" element={<Join />} />
         <Route path="/registerOwner" element={<RegisterOwner />} />
         <Route path="/loginAdmin" element={<LoginAdmin />} />
+        <Route path="/loginWorker" element={<LoginWorker />} />
       </Routes>
     </>
   );

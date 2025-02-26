@@ -1,20 +1,20 @@
 const passport = require("passport");
-const admin = require("./admin");
+const login = require("./login");
 
-
-const { owner } = require("../models");
+const { admin } = require("../models");
 
 module.exports = async () => {
   try {
     await passport.serializeUser((user, done) => {
-      console.log("user : " + user)
-      console.log("user : " + user)
+      
+
+
       console.log(JSON.stringify(user, null, 2));
       console.log("여기까지");
 
-      console.log(user.owner_id, user.owner_name)
+      console.log(user.admin_id, user.admin_name)
       process.nextTick(() => {
-        done(null, { id: user.owner_id, owner_name: user.owner_name });
+        done(null, { id: user.admin_id, admin_name: user.admin_name });
       })
   
     });
@@ -26,7 +26,7 @@ module.exports = async () => {
       console.log("data.id : "+ data.id )
       console.log("data.id : "+ data.id )
       try {
-        const user = await owner.findOne({ where: { owner_id: data.id } });
+        const user = await admin.findOne({ where: { admin_id: data.id } });
         console.log("user : " + user)
         console.log(JSON.stringify(user, null, 2));
         if (!user) {
@@ -43,11 +43,13 @@ module.exports = async () => {
       }
     });
   
-    admin();
+    login();
   } catch(e) {
 
   }
- 
+  
 };
+
+
 
 passport._debug = true;

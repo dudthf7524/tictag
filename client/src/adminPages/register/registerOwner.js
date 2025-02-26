@@ -47,7 +47,7 @@ const RegisterOwner = () => {
         formData.company_address = postcode + " " + address + " " + addressDetail.addressDetail;
         try {
             const response = await api.post(
-                `/owner/register`,
+                `/company/register`,
                 formData,
                 { withCredentials: true }
             );

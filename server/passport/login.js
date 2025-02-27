@@ -44,12 +44,12 @@ module.exports = () => {
                 passwordField: "worker_pw",
                 passReqToCallback: true,
             },
-            async (req, admin_id, admin_pw, done) => {
+            async (req, worker_id, worker_pw, done) => {
 
-                console.log("worker :" + admin_id)
-                console.log("worker :" + admin_pw)
+                console.log("worker :" + worker_id)
+                console.log("worker :" + worker_pw)
                 try {
-                    const result = await worker.login(admin_id, admin_pw);
+                    const result = await worker.login(worker_id, worker_pw);
                     console.log("result : " + result)
                     if (!result) {
                         return done(null, false, { reason: "존재하지 않는 사용자입니다." });

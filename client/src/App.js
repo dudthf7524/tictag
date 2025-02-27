@@ -10,6 +10,9 @@ import RegisterOwner from "./adminPages/register/registerOwner";
 import LoginAdmin from "./adminPages/login/loginAdmin";
 import LoginWorker from "./pages/login/loginWorker";
 
+import IsAdmin from "./pages/isAdmin";
+import IsWorker from "./pages/isWorker";
+
 
 function App() {
   return (
@@ -22,6 +25,8 @@ function App() {
         <Route path="/registerOwner" element={<RegisterOwner />} />
         <Route path="/loginAdmin" element={<LoginAdmin />} />
         <Route path="/loginWorker" element={<LoginWorker />} />
+        <Route path="/isAdmin" element={<IsAdmin />} />
+        <Route path="/isWorker" element={<IsWorker />} />
       </Routes>
     </>
   );

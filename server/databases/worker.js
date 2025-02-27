@@ -26,6 +26,7 @@ const login = async (worker_id, worker_pw) => {
     try {
         const resultLogin = await worker.findOne({
             where: { worker_id: worker_id },
+            attributes: ["worker_id", "worker_pw", "worker_name"],
             raw: true
         });
 

@@ -10,7 +10,7 @@ const passport = require("passport");
 const session = require("express-session");
 const path = require('path'); // path 모듈 추가
 
-const passportConfig = require("./passport");
+const passportConfig = require("./passport/cookie");
 
 const app = express();
 
@@ -66,7 +66,12 @@ app.use(router);
 
 
 app.get("/admin/auth", (req, res) => {
-    res.json(req.user.admin_name);
+    console.log('aaaaaaa')
+    console.log(req.user.role)
+    
+    console.log('aaaaaaa')
+    res.json(req.user);
+    
 });
 
 app.use("/worker", worker);

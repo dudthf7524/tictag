@@ -25,6 +25,7 @@ const login = async (admin_id, admin_pw) => {
     try {
         const resultLogin = await admin.findOne({
             where: { admin_id: admin_id },
+            attributes: ["admin_id", "admin_name", "admin_pw", "admin_auth"],
             raw: true
         });
 

@@ -3,7 +3,8 @@ import api from "../Api";
 import { useNavigate } from "react-router-dom";
 
 const IsWorker = () => {
-
+    const [user, setUser] = useState('');
+    const navigate = useNavigate();
 
 
 

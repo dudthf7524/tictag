@@ -16,6 +16,7 @@ module.exports = async () => {
         })
       }
     });
+    
     await passport.deserializeUser(async (data, done) => {
       try {
         if (data.role === 'worker') {
@@ -54,6 +55,8 @@ module.exports = async () => {
     });
 
     login();
+    passport._debug = true;  // 디버깅 활성화
+
   } catch (e) {
 
   }

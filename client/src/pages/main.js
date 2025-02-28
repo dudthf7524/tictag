@@ -1,45 +1,74 @@
-import { useEffect, useState } from "react";
+
 import "../css/main.css";
 import Attendance from "./attendance/attendance";
-import api from "../Api";
 import { useNavigate } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
+
 const Main = () => {
-  const [user, setUser] = useState('');
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await api.get("/admin/auth", {
-          withCredentials: true,
-        });
-        console.log(response.data)
-        setUser(response.data);
-        if (!response.data) {
-        }
-      } catch (error) {
-        console.error("로그인 인증 실패:", error);
-      }
-    };
-    fetchUser();
-  }, []);
+  const { user } = useSelector((state) => state.user);
+
+
+
+
+
+
+
   const a = () => {
     navigate('/isworker')
   }
 
+
+
+
   const b = () => {
-    if(user.role === 'worker'){
+    if (user.role === 'worker') {
       alert('관리자가 아닙니다.')
       return;
     }
     navigate('/isadmin')
   }
 
+
+  const c = () => {
+
+    navigate('/loginAdmin')
+  }
+
+
+  const d = () => {
+
+    navigate('/loginWorker')
+  }
+
   return (
     <>
       <Attendance />
-      <div>현재 로그인된 사람 : {user.admin_name}{user.role}</div>
+      <br></br>
+      {
+        user?.role === 'worker' ? (
+          <div>현재 로그인된 사람 :  {user.worker_name} <br></br> 역할 : {user.role}</div>
+
+        ) : user?.role === 'admin' ? (
+          <div>현재 로그인된 사람 : {user.admin_name}  역할 : {user.role}</div>
+        ) : (
+          <div>
+            <button onClick={c}>관리자 로그인</button>
+            <br></br><br></br>
+            <button onClick={d}>직원 로그인</button>
+          </div>
+        )
+      }
+      <br></br>
+      <div>
+        <button onClick={c}>관리자 로그인</button>
+        <br></br><br></br>
+        <button onClick={d}>직원 로그인</button>
+      </div>
       <br></br>
       <button onClick={a}>출근/퇴근</button>
       <br></br>

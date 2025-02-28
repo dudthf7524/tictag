@@ -9,7 +9,7 @@ const router = require('./routes/company');
 const passport = require("passport");
 const session = require("express-session");
 const path = require('path'); // path 모듈 추가
-
+const user = require("./routes/user");
 const passportConfig = require("./passport/cookie");
 
 const app = express();
@@ -65,19 +65,11 @@ app.get("/", (req, res) => {
 app.use(router);
 
 
-app.get("/admin/auth", (req, res) => {
-    console.log('aaaaaaa')
-    console.log(req.user.role)
-    
-    console.log('aaaaaaa')
-    res.json(req.user);
-    
-});
 
 app.use("/worker", worker);
 app.use("/admin", admin);
 app.use("/company", company);
-
+app.use("/user", user);
 // 빌드된 React 앱을 제공하는 경로
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./build/index.html"));

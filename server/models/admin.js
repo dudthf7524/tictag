@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
             },
             admin_pw: {
-                type: DataTypes.STRING(30),
+                type: DataTypes.STRING(100),
                 allowNull: false,
                 defaultValue: '',
             },

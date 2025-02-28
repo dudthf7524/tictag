@@ -32,7 +32,7 @@ fs
   });
 
 db.admin = require("./admin")(sequelize, Sequelize);
-db.owner = require("./owner")(sequelize, Sequelize);
+db.company = require("./company")(sequelize, Sequelize);
 db.worker = require("./worker")(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {

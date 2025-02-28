@@ -8,9 +8,25 @@ import Login from "./pages/login";
 import Join from "./pages/join";
 import RegisterOwner from "./adminPages/register/registerOwner";
 import LoginAdmin from "./adminPages/login/loginAdmin";
-import Test from "./test";
+import LoginWorker from "./pages/login/loginWorker";
+
+import IsAdmin from "./pages/isAdmin";
+import IsWorker from "./pages/isWorker";
+
+import { USER_AUTH_REQUEST } from "./reducers/user";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: USER_AUTH_REQUEST,
+    });
+  }, []);
   return (
     <>
       <ScrollToTop />
@@ -20,7 +36,9 @@ function App() {
         <Route path="/join" element={<Join />} />
         <Route path="/registerOwner" element={<RegisterOwner />} />
         <Route path="/loginAdmin" element={<LoginAdmin />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="/loginWorker" element={<LoginWorker />} />
+        <Route path="/isAdmin" element={<IsAdmin />} />
+        <Route path="/isWorker" element={<IsWorker />} />
       </Routes>
     </>
   );

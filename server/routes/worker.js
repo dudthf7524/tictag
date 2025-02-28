@@ -6,8 +6,7 @@ const passport = require("passport");
 
 router.post('/login', async (req, res, next) => {
     console.log("내가 왔다 ")
-
-    passport.authenticate('admin', (error, user, info) => {
+    passport.authenticate('worker', (error, user, info) => {
         console.log("user")
         console.log(user)
         console.log("user")
@@ -19,14 +18,9 @@ router.post('/login', async (req, res, next) => {
 
             // 세션 상태 확인
 
-
             return res.status(200).json({});
         });
     })(req, res, next);
 })
-
-router.get("/auth", (req, res) => {
-    res.json(req.user);
-});
 
 module.exports = router;

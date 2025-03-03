@@ -36,7 +36,7 @@ module.exports = async () => {
         } else if (data.role === 'admin') {
           const user = await admin.findOne({
             where: { admin_id: data.login_id },
-            attributes: ["admin_id", "admin_name", "admin_auth"],
+            attributes: ["admin_id", "admin_name", "admin_auth", "company_code"],
             raw: true
           });
 

@@ -12,7 +12,7 @@ const Main = () => {
 
   const { user } = useSelector((state) => state.user);
 
-
+  console.log(user)
 
 
 
@@ -45,6 +45,29 @@ const Main = () => {
     navigate('/loginWorker')
   }
 
+  const google1 = () => {
+
+    navigate('/googleMap')
+  }
+  const google2 = () => {
+
+    navigate('/googleMapApi')
+  }
+  const google3 = () => {
+
+    navigate('/googleMapApiAddress')
+  }
+  
+
+  const workPattern = () => {
+
+    navigate('/workPattern')
+  }
+
+  const workTime = () => {
+
+    navigate('/workTime')
+  }
   return (
     <>
       <Attendance />
@@ -58,7 +81,7 @@ const Main = () => {
         ) : (
           <div>
             <button onClick={c}>관리자 로그인</button>
-            <br></br><br></br>
+            <br></br>
             <button onClick={d}>직원 로그인</button>
           </div>
         )
@@ -66,14 +89,26 @@ const Main = () => {
       <br></br>
       <div>
         <button onClick={c}>관리자 로그인</button>
-        <br></br><br></br>
+        <br></br>
         <button onClick={d}>직원 로그인</button>
       </div>
       <br></br>
       <button onClick={a}>출근/퇴근</button>
       <br></br>
-      <br></br>
       <button onClick={b}>관리자페이지</button>
+      <br></br>
+      <button onClick={google1}>구글_API_1</button>
+      <br></br>
+      <button onClick={google2}>구글_API_2</button>
+      <br></br>
+      <button onClick={google3}>구글_API_3</button>
+      <br></br>
+      <br></br>
+      <button onClick={workPattern}>근로 패턴 설정</button>
+      <br></br>
+      <br></br>
+      <button onClick={workTime}>근로 시간 설정</button>
+
     </>
   )
 }

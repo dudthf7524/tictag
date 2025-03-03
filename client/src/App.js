@@ -14,10 +14,18 @@ import IsAdmin from "./pages/isAdmin";
 import IsWorker from "./pages/isWorker";
 
 import { USER_AUTH_REQUEST } from "./reducers/user";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 
+import GoogleMap from "./pages/googleMap";
+import GoogleMapApi from "./pages/googleMapApi";
+import GoogleMapApiAddress from "./pages/googleMapApiAddress";
+import Clender from "./pages/celender";
+
+
+import WorkPattern from "./pages/workPattern";
+import WorkTime from "./pages/workTime";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,11 +42,19 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
-        <Route path="/registerOwner" element={<RegisterOwner />} />
+        <Route path="/company" element={<RegisterOwner />} />
         <Route path="/loginAdmin" element={<LoginAdmin />} />
         <Route path="/loginWorker" element={<LoginWorker />} />
         <Route path="/isAdmin" element={<IsAdmin />} />
         <Route path="/isWorker" element={<IsWorker />} />
+        <Route path="/googlemap" element={<GoogleMap />} />
+        <Route path="/googlemapApi" element={<GoogleMapApi />} />
+        <Route path="/googleMapApiAddress" element={<GoogleMapApiAddress />} />
+
+        <Route path="/calender" element={<Clender />} />
+        <Route path="/workPattern" element={<WorkPattern />} />
+        <Route path="/workTime" element={<WorkTime />} />
+
       </Routes>
     </>
   );

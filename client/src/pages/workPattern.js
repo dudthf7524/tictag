@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../Api";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const WorkPattern = () => {
     const navigate = useNavigate();
     const [workPatterns, setworkPatterns] = useState([]);
     const [formData, setFormData] = useState({
@@ -35,9 +35,10 @@ const Login = () => {
 
             if (response.data === "common") {
                 navigate("/");
-            } else {
-                window.location.href ='workPattern'
-            }
+            } else if (response.data === "1") {
+                window.location.reload();
+            } 
+
         } catch {
 
         }
@@ -114,4 +115,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default WorkPattern;

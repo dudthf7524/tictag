@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const worker = sequelize.define(
+    const workerPattern = sequelize.define(
         'work_pattern',
         {
             work_pattern_id: {
@@ -36,9 +36,13 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 
-    worker.associate = (db) => {
-        // 관계 설정이 필요한 경우 여기에 추가
+    workerPattern.associate = (db) => {
+        // work_pattern은 여러 개의 work_time을 가질 수 있음 (hasMany)
+        workerPattern.hasMany(db.workTime, {
+            foreignKey: 'work_pattern_id',
+            sourceKey: 'work_pattern_id',
+        });
     };
 
-    return worker;
+    return workerPattern;
 };

@@ -2,10 +2,16 @@ module.exports = (sequelize, DataTypes) => {
     const worker = sequelize.define(
         'worker',
         {
+            worker_code: {
+                type: DataTypes.INTEGER, // 숫자 타입으로 변경
+                allowNull: false,
+                primaryKey: true,
+                autoIncrement: true, // 자동 증가 설정
+            },
             worker_id: {
                 type: DataTypes.STRING(30),
                 allowNull: false,
-                primaryKey: true,
+                unique: true,
             },
             worker_pw: {
                 type: DataTypes.STRING(100),

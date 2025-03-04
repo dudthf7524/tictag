@@ -57,7 +57,23 @@ const login = async (worker_id, worker_pw) => {
 };
 
 
+const workerList = async (company_code) => {
+   
+    try {
+        const result = await worker.findAll({
+            where: { company_code : company_code },
+            attributes: ["worker_code", "worker_name", "worker_grade", "worker_name", "worker_phone"],
+
+
+        });
+        return result;
+    } catch (error) {
+        console.error(error)
+    }
+};
+
 module.exports = {
     workerInsert,
     login,
+    workerList,
 };

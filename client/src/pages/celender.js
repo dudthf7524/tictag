@@ -1,76 +1,121 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../css/calender.css';
+import api from "../Api";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 const SelectDatePage2 = () => {
     const [date, setDate] = useState(new Date());
     const [reservationDate, setReservationDate] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [workLists, setWorkLists] = useState([]);
 
     // 각 요일별 출근시간과 퇴근시간 설정
-    const workTimes = {
-        Sunday: { start: "10:00", end: "18:00" },
-        Monday: { start: "09:00", end: "18:00" },
-        Tuesday: { start: "09:00", end: "17:00" },
-        Wednesday: { start: "09:00", end: "18:00" },
-        Thursday: { start: "08:30", end: "17:30" },
-        Friday: { start: "09:00", end: "18:00" },
-        Saturday: { start: "09:00", end: "18:00" },
+    const initialWorkTimes = {
+        0: null,
+        1: null,
+        2: null,
+        3: null,
+        4: null,
+        5: null,
+        6: null,
     };
+    const [workTimes, setWorkTimes] = useState(initialWorkTimes);
+
+    const navigate = useNavigate();
+
+    const { user } = useSelector((state) => state.user);
+
 
     // 요일 번호를 요일 이름으로 변환
     const getDayName = (dayIndex) => {
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        return days[dayIndex];
+        return dayIndex;  // 수정: 숫자 그대로 반환
     };
+
+
+
+    useEffect(() => {
+        const serverData = async (e) => {
+            try {
+                const response = await api.post(
+                    "/workTime/list",
+                    { worker_code: user.worker_code }, // worker_code를 요청 본문에 포함
+                    { withCredentials: true }
+                );
+                console.log(response.data)
+                setWorkLists(response.data)
+                const updatedWorkTimes = { ...initialWorkTimes };
+
+                // 서버에서 받은 데이터를 기반으로 workTimes 업데이트
+                response.data.forEach((item) => {
+                    updatedWorkTimes[item.day] = {
+                        start: item.work_pattern.start_time,
+                        end: item.work_pattern.end_time,
+                    };
+                });
+
+                setWorkTimes(updatedWorkTimes);
+
+                if (response.data === "common") {
+                    navigate("/");
+                }
+            } catch {
+
+            }
+
+        }
+        serverData();
+    }, [user]);
+
+
 
     // 날짜를 렌더링하는 함수
     const renderCalendar = () => {
         const viewYear = date.getFullYear();
-        const viewMonth = date.getMonth(); // 0부터 시작하는 이번 달 월
+        const viewMonth = date.getMonth();
+        const today = new Date(); 
+        const todayDate = today.getDate(); 
+        const todayMonth = today.getMonth(); // 오늘의 월
+        const todayYear = today.getFullYear(); // 오늘의 연도
 
-        // 이번 달의 마지막 날짜 계산
         const thisLast = new Date(viewYear, viewMonth + 1, 0);
         const TLDate = thisLast.getDate();
+        const firstDay = new Date(viewYear, viewMonth, 1).getDay();
 
-        // 이번 달의 첫 날
-        const firstDay = new Date(viewYear, viewMonth, 1);
-        const firstDayOfWeek = firstDay.getDay(); // 첫 날의 요일 (0: 일요일, 1: 월요일, ...)
-
-        // 이번 달 날짜만 추출
-        const thisDates = [...Array(TLDate).keys()].map(i => i + 1); // 1부터 시작하는 날짜 배열
-
-        // 날짜를 렌더링할 때 첫 번째 날의 요일을 고려하여 렌더링
-        const totalDays = [...Array(firstDayOfWeek).fill(''), ...thisDates]; // 첫 날의 요일에 맞춰 빈 칸 추가
+        const thisDates = [...Array(TLDate).keys()].map(i => i + 1);
+        const totalDays = [...Array(firstDay).fill(''), ...thisDates];
 
         return totalDays.map((d, i) => {
             if (d === '') {
-                return <div key={i} className="date empty"></div>; // 빈 칸 처리
+                return <div key={i} className="date empty"></div>;
             }
 
-            const isToday =
-                d === new Date().getDate() &&
-                viewMonth === new Date().getMonth() &&
-                viewYear === new Date().getFullYear();
-
             const dayOfWeek = new Date(viewYear, viewMonth, d).getDay();
-            const workTime = workTimes[getDayName(dayOfWeek)]; // 요일 이름을 이용해 출근시간과 퇴근시간을 가져옵니다.
-
+            const dayName = getDayName(dayOfWeek);
+            const workTime = workTimes[dayName]; // 해당 요일의 출근/퇴근 시간 가져오기
+            const isWeekend = workTime === null; // 휴무 여부 확인
+            const isToday = (d === todayDate) && (viewMonth === todayMonth) && (viewYear === todayYear); // 오늘 날짜 비교
             return (
                 <div
                     key={i}
-                    className={`date ${isToday ? "today" : ""}`}
-                    onClick={() => openModal(viewYear, viewMonth + 1, d)}
+                    className={`date ${isWeekend ? "weekend" : ""} ${isToday ? "today" : ""}`} 
+                    onClick={!isWeekend ? () => openModal(viewYear, viewMonth + 1, d) : null}
+                    style={{ cursor: isWeekend ? "not-allowed" : "pointer" }}
                 >
                     <span className="day-number">{d}</span>
-                    <div className="time-info">
-                        <div>출근: {workTime.start}</div>
-                        <div>퇴근: {workTime.end}</div>
-                    </div>
+                    {isWeekend ? (
+                        <div className="holiday-label">휴무</div>
+                    ) : (
+                        <div className="time-info">
+                            <div>출근: {workTime.start}</div>
+                            <div>퇴근: {workTime.end}</div>
+                        </div>
+                    )}
                 </div>
             );
         });
     };
-
     // 모달 열기
     const openModal = (year, month, day) => {
         const formattedMonth = month.toString().padStart(2, "0");
@@ -147,8 +192,6 @@ const SelectDatePage2 = () => {
                     </div>
                 </div>
             )}
-
-           
         </div>
     );
 };

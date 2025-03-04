@@ -9,6 +9,7 @@ router.post("/register" , authMiddlewareSC, async (req, res) => {
     const company_code  = req.user.company_code;
     try{
         await workPattern.workPatternInsert(company_code, data);
+        return res.json("1");
     }catch(error){
         console.log(error)
     }

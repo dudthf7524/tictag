@@ -26,6 +26,8 @@ import Clender from "./pages/celender";
 
 import WorkPattern from "./pages/workPattern";
 import WorkTime from "./pages/workTime";
+import WorkerList from "./pages/workerList";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -54,6 +56,7 @@ function App() {
         <Route path="/calender" element={<Clender />} />
         <Route path="/workPattern" element={<WorkPattern />} />
         <Route path="/workTime" element={<WorkTime />} />
+        <Route path="/workerList" element={<WorkerList />} />
 
       </Routes>
     </>

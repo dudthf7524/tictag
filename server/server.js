@@ -11,6 +11,8 @@ const session = require("express-session");
 const path = require('path'); // path 모듈 추가
 const user = require("./routes/user");
 const workPattern = require("./routes/workPattern");
+const workTime = require("./routes/workTime");
+
 
 const passportConfig = require("./passport/cookie");
 
@@ -73,6 +75,7 @@ app.use("/admin", admin);
 app.use("/company", company);
 app.use("/user", user);
 app.use("/workPattern", workPattern);
+app.use("/workTime", workTime);
 
 // 빌드된 React 앱을 제공하는 경로
 app.get("*", (req, res) => {

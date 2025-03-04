@@ -35,6 +35,8 @@ db.admin = require("./admin")(sequelize, Sequelize);
 db.company = require("./company")(sequelize, Sequelize);
 db.worker = require("./worker")(sequelize, Sequelize);
 db.workPattern = require("./workPattern")(sequelize, Sequelize);
+db.workTime = require("./workTime")(sequelize, Sequelize);
+
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

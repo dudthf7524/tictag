@@ -22,7 +22,7 @@ module.exports = async () => {
         if (data.role === 'worker') {
           const user = await worker.findOne({
             where: { worker_id: data.login_id },
-            attributes: ["worker_id", "worker_name"],
+            attributes: ["worker_code", "worker_id", "worker_name"],
             raw: true
           });
 

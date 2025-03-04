@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const passport = require("passport");
+const authMiddlewareSC = require('../middleware/authMiddlewareSC');
+const worker = require('../databases/worker');
 
 
 router.post('/login', async (req, res, next) => {
@@ -21,6 +23,18 @@ router.post('/login', async (req, res, next) => {
             return res.status(200).json({});
         });
     })(req, res, next);
+})
+
+router.get('/list', authMiddlewareSC, async (req, res, next) => {
+    const company_code = req.user.company_code;
+    console.log(company_code)
+    try {
+        const result = await worker.workerList(company_code);
+        res.json(result)
+    } catch (error) {
+        console.log(error)
+    }
+
 })
 
 module.exports = router;

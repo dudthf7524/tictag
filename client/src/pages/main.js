@@ -68,6 +68,11 @@ const Main = () => {
 
     navigate('/workTime')
   }
+
+  const workerList = () => {
+
+    navigate('/workerList')
+  }
   return (
     <>
       <Attendance />
@@ -108,6 +113,9 @@ const Main = () => {
       <br></br>
       <br></br>
       <button onClick={workTime}>근로 시간 설정</button>
+      <br></br>
+      <br></br>
+      <button onClick={workerList}>근로자 리스트</button>
 
     </>
   )
